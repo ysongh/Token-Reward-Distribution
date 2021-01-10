@@ -1,15 +1,22 @@
 import React, { Component} from 'react';
 import { BridgeSDK, TOKEN, EXCHANGE_MODE } from 'bridge-sdk';
+import Web3 from 'web3';
 
 import './App.css';
 import Form from './components/Form';
 
 class App extends Component {
   state = {
+    account: '',
     bridgeSDK: null
   }
 
   async componentDidMount(){
+    await this.loadWeb3();
+
+    const accounts = await window.web3.eth.getAccounts();
+    this.setState({ account: accounts[0] });
+
     const configs = require('bridge-sdk/lib/configs');
     const bridgeSDK = new BridgeSDK({ logLevel: 0 });
 
@@ -21,7 +28,21 @@ class App extends Component {
     this.setState({ bridgeSDK });
   }
 
-  async sendTokens(ethaddress, oneaddress, amount){
+  async loadWeb3(){
+    if (window.ethereum) {
+      window.web3 = new Web3(window.ethereum);
+
+      await window.ethereum.enable();
+    }
+    else if (window.web3) {
+      window.web3 = new Web3(window.web3.currentProvider);
+    }
+    else {
+      window.alert('Non-Ethereum browser detected. You should consider trying MetaMask!');
+    }
+  }
+
+  async sendTokens(oneaddress, amount){
     let operationId;
 
     try {
@@ -30,7 +51,7 @@ class App extends Component {
         token: TOKEN.BUSD,
         amount: amount,
         oneAddress: oneaddress,
-        ethAddress: ethaddress,
+        ethAddress: this.state.account,
       }, (id) => operationId = id);
     } catch (e) {
       console.log(e.message);
@@ -44,7 +65,7 @@ class App extends Component {
     return (
       <div className="App">
         <h1>Fund Restaurant</h1>
-        <Form sendTokens={this.sendTokens.bind(this)} />
+        <Form account={this.state.account} sendTokens={this.sendTokens.bind(this)} />
       </div>
     );
   }
