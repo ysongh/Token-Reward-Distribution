@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
 
-function Form({ account, sendTokens }) {
+function Form({ account, sendTokensToOne, sendTokensToEth }) {
   const [oneaddress, setOneadress] = useState('');
   const [amount, setAmount] = useState(0);
 
   return (
     <div>
-      <h2>Send token</h2>
+      <h2>Transfer Tokens</h2>
       <p>Your Eth address: {account}</p>
       
       <input
@@ -19,8 +19,12 @@ function Form({ account, sendTokens }) {
         placeholder="Amount"
         onChange={e => setAmount(e.target.value)} />
       <br />
-      <button onClick={() => sendTokens(oneaddress, amount)}>
-        Send
+      <button onClick={() => sendTokensToOne(oneaddress, amount)}>
+        Send BUSD token From Metamask to One Wallet
+      </button>
+      <br />
+      <button onClick={() => sendTokensToEth(oneaddress, amount)}>
+        Send BUSD token From One Wallet to Metamask 
       </button>
     </div>
   );

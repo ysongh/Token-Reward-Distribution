@@ -42,7 +42,7 @@ class App extends Component {
     }
   }
 
-  async sendTokens(oneaddress, amount){
+  async sendTokensToOne(oneaddress, amount){
     let operationId;
 
     try {
@@ -61,11 +61,33 @@ class App extends Component {
     console.log(operation);
   }
 
+  async sendTokensToEth(oneaddress, amount){
+    let operationId;
+
+    try {
+      await this.state.bridgeSDK.sendToken({
+        type: EXCHANGE_MODE.ONE_TO_ETH,
+        token: TOKEN.BUSD,
+        amount: amount,
+        oneAddress: oneaddress,
+        ethAddress: this.state.account,
+      }, (id) => operationId = id);
+    } catch (e) {
+      console.log(e.message);
+    }
+
+    const operation = await this.state.bridgeSDK.api.getOperation(operationId);
+    console.log(operation);
+  }
+
   render(){
     return (
       <div className="App">
         <h1>Fund Restaurant</h1>
-        <Form account={this.state.account} sendTokens={this.sendTokens.bind(this)} />
+        <Form
+          account={this.state.account}
+          sendTokensToOne={this.sendTokensToOne.bind(this)}
+          sendTokensToEth={this.sendTokensToEth.bind(this)} />
       </div>
     );
   }
