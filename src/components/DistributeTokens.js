@@ -7,13 +7,22 @@ function DistributeTokens({ sendTokensToEth }) {
   const [addressList, setAddressList] = useState([]);
 
   const addAddress = () => {
-    setAddressList([...addressList, ethaddress]);
+    const newAddress = {
+      address: ethaddress,
+      receiveToken: false
+    }
+    setAddressList([...addressList, newAddress]);
     setEthaddress('');
   }
 
   const distributeTokens = async () => {
     for(let address of addressList){
-      await sendTokensToEth(oneaddress, address, amount);
+      if(!address.receiveToken){
+        await sendTokensToEth(oneaddress, address.address, amount);
+        
+        address.receiveToken = true;
+        setAddressList([...addressList]);
+      }
     }
   }
 
@@ -22,7 +31,12 @@ function DistributeTokens({ sendTokensToEth }) {
       <h2>Distribute Tokens</h2>
 
       {addressList.map(address => {
-        return <p key={address}>{address}</p>;
+        return (
+          <div key={address.address}>
+            <p>{address.address} - {address.receiveToken ? "Yes" : "No"}</p>
+          </div>
+          
+        )
       })}
 
       <input
