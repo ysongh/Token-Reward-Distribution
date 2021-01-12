@@ -4,6 +4,7 @@ import Web3 from 'web3';
 
 import './App.css';
 import Form from './components/Form';
+import DistributeTokens from './components/DistributeTokens';
 
 class App extends Component {
   state = {
@@ -61,7 +62,7 @@ class App extends Component {
     console.log(operation);
   }
 
-  async sendTokensToEth(oneaddress, amount){
+  async sendTokensToEth(oneaddress, ethAddress, amount){
     let operationId;
 
     try {
@@ -70,7 +71,7 @@ class App extends Component {
         token: TOKEN.BUSD,
         amount: amount,
         oneAddress: oneaddress,
-        ethAddress: this.state.account,
+        ethAddress: ethAddress,
       }, (id) => operationId = id);
     } catch (e) {
       console.log(e.message);
@@ -83,11 +84,12 @@ class App extends Component {
   render(){
     return (
       <div className="App">
-        <h1>Fund Restaurant</h1>
+        <h1>Token Reward Distribution</h1>
         <Form
           account={this.state.account}
           sendTokensToOne={this.sendTokensToOne.bind(this)}
           sendTokensToEth={this.sendTokensToEth.bind(this)} />
+        <DistributeTokens sendTokensToEth={this.sendTokensToEth.bind(this)} />
       </div>
     );
   }
