@@ -5,6 +5,7 @@ function DistributeTokens({ sendTokensToEth }) {
   const [amount, setAmount] = useState(0);
   const [ethaddress, setEthaddress] = useState('');
   const [addressList, setAddressList] = useState([]);
+  const [loading, setLoading] = useState(false);
 
   const addAddress = () => {
     const newAddress = {
@@ -16,6 +17,8 @@ function DistributeTokens({ sendTokensToEth }) {
   }
 
   const distributeTokens = async () => {
+    setLoading(true);
+
     for(let address of addressList){
       if(!address.receiveToken){
         await sendTokensToEth(oneaddress, address.address, amount);
@@ -24,6 +27,8 @@ function DistributeTokens({ sendTokensToEth }) {
         setAddressList([...addressList]);
       }
     }
+
+    setLoading(false);
   }
 
   return (
@@ -61,8 +66,8 @@ function DistributeTokens({ sendTokensToEth }) {
         value={amount}
         onChange={e => setAmount(e.target.value)} />
       <br />
-      <button onClick={() => distributeTokens()}>
-        Distribute Tokens
+      <button onClick={() => distributeTokens()} disabled={loading}>
+        {loading ? "Pending" : "Distribute Tokens"}
       </button>
     </div>
   );
