@@ -31,9 +31,31 @@ function DistributeTokens({ sendTokensToEth }) {
     setLoading(false);
   }
 
+  const getOneWalletAddress = () => {
+    try{
+      setTimeout(() => {
+        window.onewallet
+          .getAccount()
+          .then(({ address }) => setOneadress(address));
+      }, 3000)
+    }
+    catch(e){
+      console.error(e);
+    }
+  }
+
   return (
     <div>
       <h2>Distribute Tokens</h2>
+
+      <h5>Your One Wallet Address:</h5>
+      {!oneaddress
+        ? <button onClick={() => getOneWalletAddress()}>Connect With One Wallet</button>
+        : <p>{oneaddress}</p>
+      }
+      <br />
+      <br />
+      <br />
 
       {addressList.map(address => {
         return (
@@ -53,12 +75,6 @@ function DistributeTokens({ sendTokensToEth }) {
         Add Address
       </button>
       <br />
-      <br />
-      <input
-        type="text"
-        placeholder="One Address"
-        value={oneaddress}
-        onChange={e => setOneadress(e.target.value)} />
       <br />
       <input
         type="number"
