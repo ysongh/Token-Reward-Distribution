@@ -5,7 +5,7 @@ import Web3 from 'web3';
 
 import './App.css';
 import Navbar from './components/layout/Navbar';
-import Form from './components/Form';
+import TransferTokens from './components/TransferTokens';
 import DistributeTokens from './components/DistributeTokens';
 
 class App extends Component {
@@ -89,7 +89,7 @@ class App extends Component {
         <Navbar />
         <Switch>
           <Route path="/transfer">
-            <Form
+            <TransferTokens
               account={this.state.account}
               sendTokensToOne={this.sendTokensToOne.bind(this)}
               sendTokensToEth={this.sendTokensToEth.bind(this)} />

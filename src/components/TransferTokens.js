@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-function Form({ account, sendTokensToOne, sendTokensToEth }) {
+function TransferTokens({ account, sendTokensToOne, sendTokensToEth }) {
   const [oneaddress, setOneadress] = useState('');
   const [amount, setAmount] = useState(0);
 
@@ -30,4 +30,4 @@ function Form({ account, sendTokensToOne, sendTokensToEth }) {
   );
 }
 
-export default Form;
+export default TransferTokens;
