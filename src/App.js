@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Switch, Route  } from 'react-router-dom';
 import Web3 from 'web3';
 
 import './App.css';
+import Navbar from './components/layout/Navbar';
 import Form from './components/Form';
 import DistributeTokens from './components/DistributeTokens';
 
@@ -85,6 +86,7 @@ class App extends Component {
   render(){
     return (
       <Router className="App">
+        <Navbar />
         <Switch>
           <Route path="/transfer">
             <Form
