@@ -1,5 +1,6 @@
 import React, { Component} from 'react';
 import { BridgeSDK, TOKEN, EXCHANGE_MODE } from 'bridge-sdk';
+import { BrowserRouter as Router, Switch, Route  } from 'react-router-dom';
 import Web3 from 'web3';
 
 import './App.css';
@@ -83,14 +84,21 @@ class App extends Component {
 
   render(){
     return (
-      <div className="App">
-        <h1>Token Reward Distribution</h1>
-        <Form
-          account={this.state.account}
-          sendTokensToOne={this.sendTokensToOne.bind(this)}
-          sendTokensToEth={this.sendTokensToEth.bind(this)} />
-        <DistributeTokens sendTokensToEth={this.sendTokensToEth.bind(this)} />
-      </div>
+      <Router className="App">
+        <Switch>
+          <Route path="/transfer">
+            <Form
+              account={this.state.account}
+              sendTokensToOne={this.sendTokensToOne.bind(this)}
+              sendTokensToEth={this.sendTokensToEth.bind(this)} />
+          </Route>
+          <Route path="/">
+            <DistributeTokens sendTokensToEth={this.sendTokensToEth.bind(this)} />
+          </Route>
+        </Switch>
+        
+        
+      </Router>
     );
   }
 }
