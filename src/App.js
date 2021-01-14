@@ -10,15 +10,11 @@ import DistributeTokens from './components/DistributeTokens';
 
 class App extends Component {
   state = {
-    account: '',
     bridgeSDK: null
   }
 
   async componentDidMount(){
     await this.loadWeb3();
-
-    const accounts = await window.web3.eth.getAccounts();
-    this.setState({ account: accounts[0] });
 
     const configs = require('bridge-sdk/lib/configs');
     const bridgeSDK = new BridgeSDK({ logLevel: 0 });
@@ -90,7 +86,6 @@ class App extends Component {
         <Switch>
           <Route path="/transfer">
             <TransferTokens
-              account={this.state.account}
               sendTokensToOne={this.sendTokensToOne.bind(this)}
               sendTokensToEth={this.sendTokensToEth.bind(this)} />
           </Route>

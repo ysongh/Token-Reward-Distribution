@@ -1,1 +1,1 @@
-# Fund Restaurant
+# Token Reward Distribution
