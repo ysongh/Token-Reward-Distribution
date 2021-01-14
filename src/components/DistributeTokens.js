@@ -5,15 +5,19 @@ function DistributeTokens({ sendTokensToEth }) {
   const [amount, setAmount] = useState(0);
   const [ethaddress, setEthaddress] = useState('');
   const [addressList, setAddressList] = useState([]);
+  const [totalAmount, setTotalAmount] = useState(0);
   const [loading, setLoading] = useState(false);
 
   const addAddress = () => {
     const newAddress = {
       address: ethaddress,
-      receiveToken: false
+      receiveToken: false,
+      amount: amount
     }
     setAddressList([...addressList, newAddress]);
+    setTotalAmount(+totalAmount + +amount);
     setEthaddress('');
+    setAmount(0);
   }
 
   const distributeTokens = async () => {
@@ -21,10 +25,11 @@ function DistributeTokens({ sendTokensToEth }) {
 
     for(let address of addressList){
       if(!address.receiveToken){
-        await sendTokensToEth(oneaddress, address.address, amount);
+        await sendTokensToEth(oneaddress, address.address, address.amount);
         
         address.receiveToken = true;
         setAddressList([...addressList]);
+        setTotalAmount(+totalAmount - +address.amount);
       }
     }
 
@@ -60,21 +65,16 @@ function DistributeTokens({ sendTokensToEth }) {
             </div>  
           </div>
 
-          <div className="card mt-3">
+          <div className="card my-3">
             <div className="card-body">
-              <p>Total Addresses: 0</p>
-
-              <div className="d-flex align-items-center">
-                <p className="mt-1">Amount: </p>
-                <input
-                  type="number"
-                  placeholder="Amount"
-                  value={amount}
-                  onChange={e => setAmount(e.target.value)} />
-              </div>
-
+              <p>Total Addresses: {addressList.length}</p>
+              <p>Total Amount: {totalAmount}</p>
               <p>Token Type: BUSD</p>
-              <button className="btn primary-color btn-block" onClick={() => distributeTokens()} disabled={loading}>
+              <button
+                className="btn primary-color btn-block"
+                onClick={() => distributeTokens()} disabled={loading}
+                disabled={!oneaddress || loading}
+                >
                 {loading ? "Pending" : "Distribute Tokens"}
               </button>
             </div>  
@@ -88,18 +88,25 @@ function DistributeTokens({ sendTokensToEth }) {
               {addressList.map(address => {
                 return (
                   <div key={address.address}>
-                    <p>{address.address} - {address.receiveToken ? "Yes" : "No"}</p>
+                    <p>{address.address} - {address.amount} - {address.receiveToken ? "Yes" : "No"}</p>
                   </div>
                 )
               })}
-              <input
-                type="text"
-                placeholder="Eth Address"
-                value={ethaddress}
-                onChange={e => setEthaddress(e.target.value)} />
-              <button className="btn primary-color" onClick={() => addAddress()}>
-                Add Address
-              </button>
+              <div className="d-flex align-items-center">
+                <input
+                  type="text"
+                  placeholder="Eth Address"
+                  value={ethaddress}
+                  onChange={e => setEthaddress(e.target.value)} />
+                <input
+                  type="number"
+                  placeholder="Amount"
+                  value={amount}
+                  onChange={e => setAmount(e.target.value)} />
+                <button className="btn primary-color" onClick={() => addAddress()}>
+                  Add
+                </button>
+              </div>
             </div>
           </div>
         </div>
