@@ -41,7 +41,7 @@ class App extends Component {
     }
   }
 
-  async sendTokensToOne(oneaddress, amount){
+  async sendTokensToOne(oneaddress, ethaddress, amount){
     let operationId;
 
     try {
@@ -50,7 +50,7 @@ class App extends Component {
         token: TOKEN.BUSD,
         amount: amount,
         oneAddress: oneaddress,
-        ethAddress: this.state.account,
+        ethAddress: ethaddress,
       }, (id) => operationId = id);
     } catch (e) {
       console.log(e.message);
