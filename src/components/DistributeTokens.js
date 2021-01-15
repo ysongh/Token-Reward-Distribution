@@ -1,14 +1,14 @@
 import React, { useState } from 'react';
 
+import AddAddressModal from './AddAddressModal';
+
 function DistributeTokens({ sendTokensToEth }) {
   const [oneaddress, setOneadress] = useState('');
-  const [amount, setAmount] = useState(0);
-  const [ethaddress, setEthaddress] = useState('');
   const [addressList, setAddressList] = useState([]);
   const [totalAmount, setTotalAmount] = useState(0);
   const [loading, setLoading] = useState(false);
 
-  const addAddress = () => {
+  const addAddress = (ethaddress, amount) => {
     const newAddress = {
       address: ethaddress,
       receiveToken: false,
@@ -16,8 +16,6 @@ function DistributeTokens({ sendTokensToEth }) {
     }
     setAddressList([...addressList, newAddress]);
     setTotalAmount(+totalAmount + +amount);
-    setEthaddress('');
-    setAmount(0);
   }
 
   const distributeTokens = async () => {
@@ -84,7 +82,12 @@ function DistributeTokens({ sendTokensToEth }) {
         <div className="col-12 col-md-7">
           <div className="card">
             <div className="card-body">
-              <h2>List of Addresses</h2>
+              <div className="d-flex justify-content-between align-items-center">
+                <h2>List of Addresses</h2>
+                <button className="btn primary-color"  data-toggle="modal" data-target="#addAddressModal">
+                  Add
+                </button>
+              </div>
               {addressList.map(address => {
                 return (
                   <div key={address.address}>
@@ -92,25 +95,11 @@ function DistributeTokens({ sendTokensToEth }) {
                   </div>
                 )
               })}
-              <div className="d-flex align-items-center">
-                <input
-                  type="text"
-                  placeholder="Eth Address"
-                  value={ethaddress}
-                  onChange={e => setEthaddress(e.target.value)} />
-                <input
-                  type="number"
-                  placeholder="Amount"
-                  value={amount}
-                  onChange={e => setAmount(e.target.value)} />
-                <button className="btn primary-color" onClick={() => addAddress()}>
-                  Add
-                </button>
-              </div>
             </div>
           </div>
         </div>
-      </div>  
+      </div> 
+      <AddAddressModal addAddress={addAddress}/>
     </div>
   );
 }
