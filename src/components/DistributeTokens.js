@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 
+import Spinner from './common/Spinner';
 import AddAddressModal from './AddAddressModal';
 
 function DistributeTokens({ sendTokensToEth }) {
@@ -11,7 +12,7 @@ function DistributeTokens({ sendTokensToEth }) {
   const addAddress = (ethaddress, amount) => {
     const newAddress = {
       address: ethaddress,
-      receiveToken: false,
+      receiveToken: "no",
       amount: amount
     }
     setAddressList([...addressList, newAddress]);
@@ -22,10 +23,13 @@ function DistributeTokens({ sendTokensToEth }) {
     setLoading(true);
 
     for(let address of addressList){
-      if(!address.receiveToken){
+      if(address.receiveToken !== "yes"){
+        address.receiveToken = "pending";
+        setAddressList([...addressList]);
+
         await sendTokensToEth(oneaddress, address.address, address.amount);
         
-        address.receiveToken = true;
+        address.receiveToken = "yes";
         setAddressList([...addressList]);
         setTotalAmount(+totalAmount - +address.amount);
       }
@@ -70,7 +74,7 @@ function DistributeTokens({ sendTokensToEth }) {
               <p>Token Type: BUSD</p>
               <button
                 className="btn primary-color btn-block"
-                onClick={() => distributeTokens()} disabled={loading}
+                onClick={() => distributeTokens()}
                 disabled={!oneaddress || loading}
                 >
                 {loading ? "Pending" : "Distribute Tokens"}
@@ -104,7 +108,7 @@ function DistributeTokens({ sendTokensToEth }) {
                         <tr key={address.address}>
                           <td>{address.address}</td>
                           <td>{address.amount}</td>
-                          <td>{address.receiveToken ? "Yes" : "No"}</td>
+                          <td>{address.receiveToken === "yes" && "Yes"} {address.receiveToken === "pending" && <Spinner />}</td>
                         </tr>
                       )
                     })}
