@@ -1,13 +1,15 @@
 import React, { useState } from 'react';
 
 import Spinner from './common/Spinner';
+import ButtonSpinner from './common/ButtonSpinner';
 import AddAddressModal from './AddAddressModal';
 
 function DistributeTokens({ sendTokensToEth }) {
-  const [oneaddress, setOneadress] = useState('');
+  const [oneaddress, setOneAddress] = useState('');
   const [addressList, setAddressList] = useState([]);
   const [totalAmount, setTotalAmount] = useState(0);
   const [loading, setLoading] = useState(false);
+  const [onewalletLoading, setOnewalletLoading] = useState(false);
 
   const addAddress = (ethaddress, amount) => {
     const newAddress = {
@@ -40,14 +42,18 @@ function DistributeTokens({ sendTokensToEth }) {
 
   const getOneWalletAddress = () => {
     try{
+      setOnewalletLoading(true);
       setTimeout(() => {
         window.onewallet
           .getAccount()
-          .then(({ address }) => setOneadress(address));
+          .then(({ address }) => setOneAddress(address));
+          
+        setOnewalletLoading(false);
       }, 3000)
     }
     catch(e){
       console.error(e);
+      setOnewalletLoading(false);
     }
   }
 
@@ -61,7 +67,12 @@ function DistributeTokens({ sendTokensToEth }) {
             <div className="card-body">
               <h5>One Wallet Address:</h5>
               {!oneaddress
-                ? <button className="btn secondary-color" onClick={() => getOneWalletAddress()}>Connect With One Wallet</button>
+                ? (
+                    <button className="btn secondary-color" onClick={() => getOneWalletAddress()} disabled={onewalletLoading}>
+                      {onewalletLoading && <ButtonSpinner />}
+                      {onewalletLoading ? 'Fetching' : 'Connect With One Wallet'}
+                    </button>
+                  )
                 : <p>{oneaddress}</p>
               }
             </div>  
@@ -77,6 +88,7 @@ function DistributeTokens({ sendTokensToEth }) {
                 onClick={() => distributeTokens()}
                 disabled={!oneaddress || loading}
                 >
+                {loading && <ButtonSpinner />}
                 {loading ? "Pending" : "Distribute Tokens"}
               </button>
             </div>  

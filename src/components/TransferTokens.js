@@ -1,9 +1,12 @@
 import React, { useState } from 'react';
 
+import ButtonSpinner from './common/ButtonSpinner';
+
 function TransferTokens({ sendTokensToOne, sendTokensToEth }) {
   const [ethaddress, setEthAddress] = useState('');
   const [oneaddress, setOneAddress] = useState('');
   const [amount, setAmount] = useState(0);
+  const [onewalletLoading, setOnewalletLoading] = useState(false);
 
   const getEthWalletAddress = async () => {
     const accounts = await window.web3.eth.getAccounts();
@@ -12,14 +15,18 @@ function TransferTokens({ sendTokensToOne, sendTokensToEth }) {
 
   const getOneWalletAddress = () => {
     try{
+      setOnewalletLoading(true);
       setTimeout(() => {
         window.onewallet
           .getAccount()
           .then(({ address }) => setOneAddress(address));
+          
+        setOnewalletLoading(false);
       }, 3000)
     }
     catch(e){
       console.error(e);
+      setOnewalletLoading(false);
     }
   }
 
@@ -39,7 +46,12 @@ function TransferTokens({ sendTokensToOne, sendTokensToEth }) {
 
               <h5 className="text-muted mt-3">One Wallet Address:</h5>
               {!oneaddress
-                ? <button className="btn secondary-color" onClick={() => getOneWalletAddress()}>Connect With One Wallet</button>
+                ? (
+                    <button className="btn secondary-color" onClick={() => getOneWalletAddress()} disabled={onewalletLoading}>
+                      {onewalletLoading && <ButtonSpinner />}
+                      {onewalletLoading ? 'Fetching' : 'Connect With One Wallet'}
+                    </button>
+                  )
                 : <p>{oneaddress}</p>
               }
 
