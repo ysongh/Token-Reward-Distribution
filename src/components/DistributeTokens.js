@@ -84,17 +84,33 @@ function DistributeTokens({ sendTokensToEth }) {
             <div className="card-body">
               <div className="d-flex justify-content-between align-items-center">
                 <h2>List of Addresses</h2>
-                <button className="btn primary-color"  data-toggle="modal" data-target="#addAddressModal">
+                <button className="btn secondary-color"  data-toggle="modal" data-target="#addAddressModal">
                   Add
                 </button>
               </div>
-              {addressList.map(address => {
-                return (
-                  <div key={address.address}>
-                    <p>{address.address} - {address.amount} - {address.receiveToken ? "Yes" : "No"}</p>
-                  </div>
-                )
-              })}
+
+              <div className="table-responsive">
+                <table className="table mt-3">
+                  <thead>
+                    <tr>
+                      <th scope="col">Address</th>
+                      <th scope="col">Amount</th>
+                      <th scope="col">Status</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {addressList.map(address => {
+                      return (
+                        <tr key={address.address}>
+                          <td>{address.address}</td>
+                          <td>{address.amount}</td>
+                          <td>{address.receiveToken ? "Yes" : "No"}</td>
+                        </tr>
+                      )
+                    })}
+                  </tbody>
+                </table>
+              </div>
             </div>
           </div>
         </div>
