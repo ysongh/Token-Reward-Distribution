@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 
-import ButtonSpinner from './common/ButtonSpinner';
+import ETHtoONE from './ETHtoONE';
+import ONEtoETH from './ONEtoETH';
 
 function TransferTokens({ sendTokensToOne, sendTokensToEth }) {
   const [ethaddress, setEthAddress] = useState('');
@@ -38,48 +39,25 @@ function TransferTokens({ sendTokensToOne, sendTokensToEth }) {
             <div className="card-body">
               <h2 className="text-center mb-4">Transfer Tokens</h2>
 
-              <h5 className="text-muted">ETH Wallet Address:</h5>
-              {!ethaddress
-                ? <button className="btn secondary-color" onClick={() => getEthWalletAddress()}>Connect With ETH Wallet</button>
-                : <p>{ethaddress}</p>
-              }
+              <ETHtoONE
+                ethaddress={ethaddress}
+                getEthWalletAddress={getEthWalletAddress}
+                oneaddress={oneaddress}
+                getOneWalletAddress={getOneWalletAddress}
+                onewalletLoading={onewalletLoading}
+                amount={amount}
+                setAmount={setAmount}
+                sendTokensToOne={sendTokensToOne} />
 
-              <h5 className="text-muted mt-3">One Wallet Address:</h5>
-              {!oneaddress
-                ? (
-                    <button className="btn secondary-color" onClick={() => getOneWalletAddress()} disabled={onewalletLoading}>
-                      {onewalletLoading && <ButtonSpinner />}
-                      {onewalletLoading ? 'Fetching' : 'Connect With One Wallet'}
-                    </button>
-                  )
-                : <p>{oneaddress}</p>
-              }
-
-              <div className="form-group mt-3 mb-4">
-                <label className="text-muted font-weight-bold" htmlFor="text">Amount</label>
-                <input
-                    className="form-control"
-                    type="number"
-                    name="Name"
-                    value={amount}
-                    onChange={(e) => setAmount(e.target.value)} 
-                />
-              </div>
-
-              <div className="d-flex flex-column">
-                <button
-                  className="btn primary-color mb-2"
-                  onClick={() => sendTokensToOne(oneaddress, ethaddress, amount)}
-                  disabled={!oneaddress || !ethaddress || amount == 0}>
-                  Send BUSD token From ETH Wallet to One Wallet
-                </button>
-                <button
-                  className="btn primary-color"
-                  onClick={() => sendTokensToEth(oneaddress, ethaddress, amount)}
-                  disabled={!oneaddress || !ethaddress || amount == 0}>
-                  Send BUSD token From One Wallet to ETH Wallet 
-                </button>
-              </div>
+              <ONEtoETH
+                ethaddress={ethaddress}
+                getEthWalletAddress={getEthWalletAddress}
+                oneaddress={oneaddress}
+                getOneWalletAddress={getOneWalletAddress}
+                onewalletLoading={onewalletLoading}
+                amount={amount}
+                setAmount={setAmount}
+                sendTokensToEth={sendTokensToEth} />
             </div>
           </div>
         </div>  
