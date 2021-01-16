@@ -122,9 +122,19 @@ function DistributeTokens({ sendTokensToEth }) {
                     {addressList.map(address => {
                       return (
                         <tr key={address.address}>
-                          <td>{address.address.substring(0,8)}...{address.address.substring(34,42)}</td>
+                          <td>
+                            <a href={`https://kovan.etherscan.io/address/${address.address}`} rel="noopener noreferrer" target="_blank">
+                              {address.address.substring(0,8)}...{address.address.substring(34,42)}
+                            </a>
+                          </td>
                           <td>{address.amount}</td>
-                          <td>{address.receiveToken === "yes" && (address.transactionHash.substring(0,8) + "..." + address.transactionHash.substring(58,66))} {address.receiveToken === "pending" && <Spinner />}</td>
+                          <td>
+                            {address.receiveToken === "yes" && (
+                              <a href={`https://kovan.etherscan.io/tx/${address.transactionHash}`} rel="noopener noreferrer" target="_blank">
+                                {address.transactionHash.substring(0,8) + "..." + address.transactionHash.substring(58,66)}
+                              </a>
+                              )} {address.receiveToken === "pending" && <Spinner />}
+                          </td>
                         </tr>
                       )
                     })}
