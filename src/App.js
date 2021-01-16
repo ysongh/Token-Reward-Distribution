@@ -76,7 +76,7 @@ class App extends Component {
     }
 
     const operation = await this.state.bridgeSDK.api.getOperation(operationId);
-    console.log(operation);
+    return operation.actions[2].transactionHash;
   }
 
   render(){

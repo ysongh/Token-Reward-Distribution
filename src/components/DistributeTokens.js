@@ -15,7 +15,8 @@ function DistributeTokens({ sendTokensToEth }) {
     const newAddress = {
       address: ethaddress,
       receiveToken: "no",
-      amount: amount
+      amount: amount,
+      transactionHash: null
     }
     setAddressList([...addressList, newAddress]);
     setTotalAmount(+totalAmount + +amount);
@@ -29,11 +30,14 @@ function DistributeTokens({ sendTokensToEth }) {
         address.receiveToken = "pending";
         setAddressList([...addressList]);
 
-        await sendTokensToEth(oneaddress, address.address, address.amount);
-        
-        address.receiveToken = "yes";
-        setAddressList([...addressList]);
-        setTotalAmount(+totalAmount - +address.amount);
+        const transactionHash = await sendTokensToEth(oneaddress, address.address, address.amount);
+
+        if(transactionHash){
+          address.receiveToken = "yes";
+          address.transactionHash = transactionHash;
+          setAddressList([...addressList]);
+          setTotalAmount(+totalAmount - +address.amount);
+        }
       }
     }
 
@@ -118,9 +122,9 @@ function DistributeTokens({ sendTokensToEth }) {
                     {addressList.map(address => {
                       return (
                         <tr key={address.address}>
-                          <td>{address.address}</td>
+                          <td>{address.address.substring(0,8)}...{address.address.substring(34,42)}</td>
                           <td>{address.amount}</td>
-                          <td>{address.receiveToken === "yes" && "Yes"} {address.receiveToken === "pending" && <Spinner />}</td>
+                          <td>{address.receiveToken === "yes" && (address.transactionHash.substring(0,8) + "..." + address.transactionHash.substring(58,66))} {address.receiveToken === "pending" && <Spinner />}</td>
                         </tr>
                       )
                     })}
