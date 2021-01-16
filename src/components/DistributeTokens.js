@@ -130,9 +130,15 @@ function DistributeTokens({ sendTokensToEth }) {
                           <td>{address.amount}</td>
                           <td>
                             {address.receiveToken === "yes" && (
-                              <a href={`https://kovan.etherscan.io/tx/${address.transactionHash}`} rel="noopener noreferrer" target="_blank">
-                                {address.transactionHash.substring(0,8) + "..." + address.transactionHash.substring(58,66)}
-                              </a>
+                              <>
+                                <a href={`https://kovan.etherscan.io/tx/${address.transactionHash}`} rel="noopener noreferrer" target="_blank">
+                                  {address.transactionHash.substring(0,8) + "..." + address.transactionHash.substring(58,66)}
+                                </a>
+                                <img
+                                  className="copy-icon"
+                                  onClick={() => {navigator.clipboard.writeText(`https://kovan.etherscan.io/tx/${address.transactionHash}`)}}
+                                  src="/images/copyicon.svg"/>
+                              </>
                               )} {address.receiveToken === "pending" && <Spinner />}
                           </td>
                         </tr>
