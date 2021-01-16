@@ -16,16 +16,16 @@ function ETHtoONE({
     <>
       <h5 className="text-muted">From ETH Wallet Address:</h5>
       {!ethaddress
-        ? <button className="btn secondary-color" onClick={() => getEthWalletAddress()}>Connect With ETH Wallet</button>
+        ? <button className="btn secondary-color" onClick={() => getEthWalletAddress()}>Connect to ETH Wallet</button>
         : <p>{ethaddress}</p>
       }
 
-      <h5 className="text-muted mt-3">To One Wallet Address:</h5>
+      <h5 className="text-muted mt-3">To ONE Wallet Address:</h5>
       {!oneaddress
         ? (
             <button className="btn secondary-color" onClick={() => getOneWalletAddress()} disabled={onewalletLoading}>
               {onewalletLoading && <ButtonSpinner />}
-              {onewalletLoading ? 'Fetching' : 'Connect With One Wallet'}
+              {onewalletLoading ? 'Fetching' : 'Connect to ONE Wallet'}
             </button>
           )
         : <p>{oneaddress}</p>
@@ -47,14 +47,8 @@ function ETHtoONE({
           className="btn primary-color mb-2"
           onClick={() => sendTokensToOne(oneaddress, ethaddress, amount)}
           disabled={!oneaddress || !ethaddress || amount == 0}>
-          Send BUSD token From ETH Wallet to One Wallet
+          Send BUSD token
         </button>
-        {/* <button
-          className="btn primary-color"
-          onClick={() => sendTokensToEth(oneaddress, ethaddress, amount)}
-          disabled={!oneaddress || !ethaddress || amount == 0}>
-          Send BUSD token From One Wallet to ETH Wallet 
-        </button> */}
       </div>
     </>
   );

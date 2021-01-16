@@ -8,6 +8,7 @@ function TransferTokens({ sendTokensToOne, sendTokensToEth }) {
   const [oneaddress, setOneAddress] = useState('');
   const [amount, setAmount] = useState(0);
   const [onewalletLoading, setOnewalletLoading] = useState(false);
+  const [type, setType] = useState('ETHtoOne');
 
   const getEthWalletAddress = async () => {
     const accounts = await window.web3.eth.getAccounts();
@@ -33,31 +34,41 @@ function TransferTokens({ sendTokensToOne, sendTokensToEth }) {
 
   return (
     <div className="container">
+      <h2 className="text-center mt-2">Transfer Tokens</h2>
+
       <div className="row">
         <div className="col-12 col-md-6 m-auto">
-          <div className="card mt-5">
+          <div className="card">
             <div className="card-body">
-              <h2 className="text-center mb-4">Transfer Tokens</h2>
+              <div className="d-flex justify-content-around mb-4">
+                <button className={type === "ETHtoOne" ? "btn btn-lg borderline-primary" : "btn btn-lg"} onClick={() => setType("ETHtoOne")}>
+                  ETH &gt; ONE
+                </button>
+                <button className={type !== "ETHtoOne" ? "btn btn-lg borderline-primary" : "btn btn-lg"} onClick={() => setType("OnetoETH")}>
+                  ONE &gt; ETH
+                </button>
+              </div>
 
-              <ETHtoONE
-                ethaddress={ethaddress}
-                getEthWalletAddress={getEthWalletAddress}
-                oneaddress={oneaddress}
-                getOneWalletAddress={getOneWalletAddress}
-                onewalletLoading={onewalletLoading}
-                amount={amount}
-                setAmount={setAmount}
-                sendTokensToOne={sendTokensToOne} />
-
-              <ONEtoETH
-                ethaddress={ethaddress}
-                getEthWalletAddress={getEthWalletAddress}
-                oneaddress={oneaddress}
-                getOneWalletAddress={getOneWalletAddress}
-                onewalletLoading={onewalletLoading}
-                amount={amount}
-                setAmount={setAmount}
-                sendTokensToEth={sendTokensToEth} />
+              {type === "ETHtoOne"
+                ? <ETHtoONE
+                    ethaddress={ethaddress}
+                    getEthWalletAddress={getEthWalletAddress}
+                    oneaddress={oneaddress}
+                    getOneWalletAddress={getOneWalletAddress}
+                    onewalletLoading={onewalletLoading}
+                    amount={amount}
+                    setAmount={setAmount}
+                    sendTokensToOne={sendTokensToOne} />
+                : <ONEtoETH
+                    ethaddress={ethaddress}
+                    getEthWalletAddress={getEthWalletAddress}
+                    oneaddress={oneaddress}
+                    getOneWalletAddress={getOneWalletAddress}
+                    onewalletLoading={onewalletLoading}
+                    amount={amount}
+                    setAmount={setAmount}
+                    sendTokensToEth={sendTokensToEth} />
+              }
             </div>
           </div>
         </div>  

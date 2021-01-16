@@ -6,3 +6,5 @@
     cursor: pointer;
     margin-left: 5px;
 }
+
+.borderline-primary{ border-bottom: 2px solid  #9ED0E0; }
