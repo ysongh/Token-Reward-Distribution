@@ -63,7 +63,7 @@ function DistributeTokens({ sendTokensToEth }) {
 
   return (
     <div className="container">
-      <h2 className="text-center my-2">Distribute Tokens</h2>
+      <h2 className="text-center my-4">Distribute Tokens</h2>
 
       <div className="row">
         <div className="col-12 col-md-5">
@@ -137,7 +137,8 @@ function DistributeTokens({ sendTokensToEth }) {
                                 <img
                                   className="copy-icon"
                                   onClick={() => {navigator.clipboard.writeText(`https://kovan.etherscan.io/tx/${address.transactionHash}`)}}
-                                  src="/images/copyicon.svg"/>
+                                  src="/images/copyicon.svg"
+                                  alt="Copy Icon" />
                               </>
                               )} {address.receiveToken === "pending" && <Spinner />}
                           </td>

@@ -1,3 +1,7 @@
+header{
+    height: 80vh;
+}
+
 .primary-color{ background-color: #9ED0E0 !important; }
 .secondary-color{ background-color: #FF6A38 !important; }
 
@@ -7,4 +11,40 @@
     margin-left: 5px;
 }
 
+.home__title{
+    font-size: 4rem;
+    line-height: 1;
+}
+
+.home__cost1{
+    color: #FF6A38;
+    font-size: 3.2rem;
+    line-height: 1.2;
+}
+
+.home__cost2{
+    color: #5A818D;
+    font-size: 3.2rem;
+    line-height: 1.2;
+}
+
+.home__icon{
+    width: 4.5rem;
+    height: 4.5rem;
+    margin-bottom: 1rem;
+}
+
+.home__icontext{
+    font-size: 1.4rem;
+    margin-bottom: 3rem;
+}
+
+.home__required{
+    background-color: #5A818D;
+    color:  #9ED0E0;
+    padding: 2rem;
+    border-radius: 20px;
+}
+
+.background-primary{ background-color: #5A818D; }
 .borderline-primary{ border-bottom: 2px solid  #9ED0E0; }

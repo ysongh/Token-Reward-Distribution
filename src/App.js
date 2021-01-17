@@ -5,6 +5,7 @@ import Web3 from 'web3';
 
 import './App.css';
 import Navbar from './components/layout/Navbar';
+import Home from './components/Home';
 import TransferTokens from './components/TransferTokens';
 import DistributeTokens from './components/DistributeTokens';
 
@@ -89,8 +90,11 @@ class App extends Component {
               sendTokensToOne={this.sendTokensToOne.bind(this)}
               sendTokensToEth={this.sendTokensToEth.bind(this)} />
           </Route>
-          <Route path="/">
+          <Route path="/distribute">
             <DistributeTokens sendTokensToEth={this.sendTokensToEth.bind(this)} />
+          </Route>
+          <Route path="/">
+            <Home />
           </Route>
         </Switch>
         

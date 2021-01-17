@@ -34,7 +34,7 @@ function TransferTokens({ sendTokensToOne, sendTokensToEth }) {
 
   return (
     <div className="container">
-      <h2 className="text-center mt-2">Transfer Tokens</h2>
+      <h2 className="text-center my-4">Transfer Tokens</h2>
 
       <div className="row">
         <div className="col-12 col-md-6 m-auto">
