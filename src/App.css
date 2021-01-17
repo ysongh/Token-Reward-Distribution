@@ -3,7 +3,7 @@ body{
 }
 
 header{
-    height: 80vh;
+    min-height: 90vh;
 }
 
 .primary-color{ background-color: #9ED0E0 !important; }
@@ -40,6 +40,10 @@ header{
     width: 4.5rem;
     height: 4.5rem;
     margin-bottom: 1rem;
+}
+
+.home__hero{
+    width: 100%;
 }
 
 .home__icontext{

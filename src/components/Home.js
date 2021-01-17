@@ -6,8 +6,8 @@ function Home() {
       <header className="background-primary">
         <div className="container">
           <div className="row py-5">
-            <div className="col-12 col-md-6 text-light">
-              <h1 className="home__title mb-4">Save money on transaction fees</h1>
+            <div className="col-12 col-md-6 text-light mb-5">
+              <h1 className="home__title mt-4 mb-4">Save money on transaction fees</h1>
               <p className="mb-4">This web app used Horizon to have low transaction fees when distributing ERC20 from One Wallet to ETH Wallet</p>
               <button className="btn primary-color btn-lg">
                 Start Distributing Token
@@ -15,7 +15,10 @@ function Home() {
             </div>
 
             <div className="col-12 col-md-6">
-
+              <img
+                className="home__hero"
+                src="/images/heroimage.svg"
+                alt="Icon" />
             </div>
           </div>
         </div>
