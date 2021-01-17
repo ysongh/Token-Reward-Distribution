@@ -10,7 +10,9 @@ function ONEtoETH({
   onewalletLoading,
   amount,
   setAmount ,
-  sendTokensToEth
+  sendTokensToEth,
+  tokenType,
+  setTokenType
 }) {
   return (
     <>
@@ -31,7 +33,7 @@ function ONEtoETH({
         : <p>{ethaddress}</p>
       }
 
-      <div className="form-group mt-3 mb-4">
+      <div className="form-group mt-3">
         <label className="text-muted font-weight-bold" htmlFor="text">Amount</label>
         <input
             className="form-control"
@@ -42,12 +44,21 @@ function ONEtoETH({
         />
       </div>
 
+      <div className="form-group mb-4">
+        <label className="text-muted font-weight-bold" htmlFor="text">Token Type</label>
+        <select className="custom-select" onChange={(e) => setTokenType(e.target.value)}>
+          <option>None</option>
+          <option value="BUSD">BUSD</option>
+          <option value="LINK">LINK</option>
+        </select>
+      </div>
+
       <div className="d-flex flex-column">
         <button
           className="btn primary-color"
-          onClick={() => sendTokensToEth(oneaddress, ethaddress, amount)}
-          disabled={!oneaddress || !ethaddress || amount == 0}>
-          Send BUSD token
+          onClick={() => sendTokensToEth(oneaddress, ethaddress, amount, tokenType)}
+          disabled={!oneaddress || !ethaddress || !tokenType || amount == 0}>
+          Transfer to ETH Wallet
         </button>
       </div>
     </>

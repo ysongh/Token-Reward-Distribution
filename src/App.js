@@ -42,13 +42,13 @@ class App extends Component {
     }
   }
 
-  async sendTokensToOne(oneaddress, ethaddress, amount){
+  async sendTokensToOne(oneaddress, ethaddress, amount, tokenType){
     let operationId;
 
     try {
       await this.state.bridgeSDK.sendToken({
         type: EXCHANGE_MODE.ETH_TO_ONE,
-        token: TOKEN.BUSD,
+        token: tokenType === "BUSD" ? TOKEN.BUSD : TOKEN.LINK,
         amount: amount,
         oneAddress: oneaddress,
         ethAddress: ethaddress,
@@ -61,13 +61,13 @@ class App extends Component {
     console.log(operation);
   }
 
-  async sendTokensToEth(oneaddress, ethAddress, amount){
+  async sendTokensToEth(oneaddress, ethAddress, amount, tokenType){
     let operationId;
 
     try {
       await this.state.bridgeSDK.sendToken({
         type: EXCHANGE_MODE.ONE_TO_ETH,
-        token: TOKEN.BUSD,
+        token: tokenType === "BUSD" ? TOKEN.BUSD : TOKEN.LINK,
         amount: amount,
         oneAddress: oneaddress,
         ethAddress: ethAddress,

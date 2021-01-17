@@ -8,6 +8,7 @@ function DistributeTokens({ sendTokensToEth }) {
   const [oneaddress, setOneAddress] = useState('');
   const [addressList, setAddressList] = useState([]);
   const [totalAmount, setTotalAmount] = useState(0);
+  const [tokenType, setTokenType] = useState('');
   const [loading, setLoading] = useState(false);
   const [onewalletLoading, setOnewalletLoading] = useState(false);
 
@@ -30,7 +31,7 @@ function DistributeTokens({ sendTokensToEth }) {
         address.receiveToken = "pending";
         setAddressList([...addressList]);
 
-        const transactionHash = await sendTokensToEth(oneaddress, address.address, address.amount);
+        const transactionHash = await sendTokensToEth(oneaddress, address.address, address.amount, tokenType);
 
         if(transactionHash){
           address.receiveToken = "yes";
@@ -79,6 +80,14 @@ function DistributeTokens({ sendTokensToEth }) {
                   )
                 : <p>{oneaddress}</p>
               }
+              <div className="form-group mt-3">
+                <label className="text-muted font-weight-bold" htmlFor="text">Token Type</label>
+                <select className="custom-select" onChange={(e) => setTokenType(e.target.value)}>
+                  <option>None</option>
+                  <option value="BUSD">BUSD</option>
+                  <option value="LINK">LINK</option>
+                </select>
+              </div>
             </div>  
           </div>
 
@@ -86,7 +95,6 @@ function DistributeTokens({ sendTokensToEth }) {
             <div className="card-body">
               <p>Total Addresses: {addressList.length}</p>
               <p>Total Amount: {totalAmount}</p>
-              <p>Token Type: BUSD</p>
               <button
                 className="btn primary-color btn-block"
                 onClick={() => distributeTokens()}

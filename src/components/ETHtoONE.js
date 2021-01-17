@@ -10,7 +10,9 @@ function ETHtoONE({
   onewalletLoading,
   amount,
   setAmount ,
-  sendTokensToOne
+  sendTokensToOne,
+  tokenType,
+  setTokenType
 }) {
   return (
     <>
@@ -31,7 +33,7 @@ function ETHtoONE({
         : <p>{oneaddress}</p>
       }
 
-      <div className="form-group mt-3 mb-4">
+      <div className="form-group mt-3">
         <label className="text-muted font-weight-bold" htmlFor="text">Amount</label>
         <input
             className="form-control"
@@ -42,12 +44,21 @@ function ETHtoONE({
         />
       </div>
 
+      <div className="form-group mb-4">
+        <label className="text-muted font-weight-bold" htmlFor="text">Token Type</label>
+        <select className="custom-select" onChange={(e) => setTokenType(e.target.value)}>
+          <option>None</option>
+          <option value="BUSD">BUSD</option>
+          <option value="LINK">LINK</option>
+        </select>
+      </div>
+
       <div className="d-flex flex-column">
         <button
           className="btn primary-color mb-2"
-          onClick={() => sendTokensToOne(oneaddress, ethaddress, amount)}
-          disabled={!oneaddress || !ethaddress || amount == 0}>
-          Send BUSD token
+          onClick={() => sendTokensToOne(oneaddress, ethaddress, amount, tokenType)}
+          disabled={!oneaddress || !ethaddress || !tokenType || amount == 0}>
+          Transfer to One Wallet
         </button>
       </div>
     </>

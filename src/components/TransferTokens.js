@@ -9,6 +9,7 @@ function TransferTokens({ sendTokensToOne, sendTokensToEth }) {
   const [amount, setAmount] = useState(0);
   const [onewalletLoading, setOnewalletLoading] = useState(false);
   const [type, setType] = useState('ETHtoOne');
+  const [tokenType, setTokenType] = useState('');
 
   const getEthWalletAddress = async () => {
     const accounts = await window.web3.eth.getAccounts();
@@ -58,7 +59,9 @@ function TransferTokens({ sendTokensToOne, sendTokensToEth }) {
                     onewalletLoading={onewalletLoading}
                     amount={amount}
                     setAmount={setAmount}
-                    sendTokensToOne={sendTokensToOne} />
+                    sendTokensToOne={sendTokensToOne}
+                    tokenType={tokenType}
+                    setTokenType={setTokenType} />
                 : <ONEtoETH
                     ethaddress={ethaddress}
                     getEthWalletAddress={getEthWalletAddress}
@@ -67,7 +70,9 @@ function TransferTokens({ sendTokensToOne, sendTokensToEth }) {
                     onewalletLoading={onewalletLoading}
                     amount={amount}
                     setAmount={setAmount}
-                    sendTokensToEth={sendTokensToEth} />
+                    sendTokensToEth={sendTokensToEth}
+                    tokenType={tokenType}
+                    setTokenType={setTokenType} />
               }
             </div>
           </div>
