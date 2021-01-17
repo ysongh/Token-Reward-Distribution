@@ -1,9 +1,17 @@
+body{
+    background-color: #DFEAEE;
+}
+
 header{
     height: 80vh;
 }
 
 .primary-color{ background-color: #9ED0E0 !important; }
 .secondary-color{ background-color: #FF6A38 !important; }
+.third-color{ background-color: #5A818D !important; }
+
+.text-primary-color{ color: #9ED0E0 !important; }
+.text-secondary-color{ color: #FF6A38 !important; }
 
 .copy-icon{
     width: 1rem;
