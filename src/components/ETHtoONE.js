@@ -12,8 +12,15 @@ function ETHtoONE({
   setAmount ,
   sendTokensToOne,
   tokenType,
-  setTokenType
+  setTokenType,
+  loading,
+  setLoading
 }) {
+  const transfer = async () => {
+    setLoading(true);
+    await sendTokensToOne(oneaddress, ethaddress, amount, tokenType);
+    setLoading(false);
+  }
   return (
     <>
       <h5 className="text-muted">From ETH Wallet Address:</h5>
@@ -56,9 +63,10 @@ function ETHtoONE({
       <div className="d-flex flex-column">
         <button
           className="btn primary-color mb-2"
-          onClick={() => sendTokensToOne(oneaddress, ethaddress, amount, tokenType)}
-          disabled={!oneaddress || !ethaddress || !tokenType || amount == 0}>
-          Transfer to One Wallet
+          onClick={() => transfer()}
+          disabled={!oneaddress || !ethaddress || !tokenType || amount == 0 || loading}>
+            {loading && <ButtonSpinner />}
+            {loading ? "Pending" : "Transfer to One Wallet"}
         </button>
       </div>
     </>
