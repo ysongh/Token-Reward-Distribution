@@ -67,7 +67,7 @@ function Home() {
                 src="/images/homeicon2.svg"
                 alt="Icon" />
               <p className="home__icontext">
-                A dashboard to manage a list of addresses to distribute
+                Very low transaction fees when distributing ERC20 to ETH Wallet using one wallet
               </p>
             </div>
 
@@ -77,7 +77,7 @@ function Home() {
                 src="/images/homeicon3.svg"
                 alt="Icon" />
               <p className="home__icontext">
-                A dashboard to manage a list of addresses to distribute
+                It uses ONE instead of ETH for transaction fee
               </p>
             </div>
           </div>

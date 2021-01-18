@@ -54,7 +54,7 @@ function DistributeTokens({ sendTokensToEth }) {
           .then(({ address }) => setOneAddress(address));
           
         setOnewalletLoading(false);
-      }, 3000)
+      }, 1000)
     }
     catch(e){
       console.error(e);
