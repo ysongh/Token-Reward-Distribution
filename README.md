@@ -3,6 +3,8 @@ A web app that allow users to send rewards as ERC20 to others with low transacti
 
 - Live Site: https://tokenrewarddistribution.netlify.app/
 - Demo: https://youtu.be/nV1rnU10Iec
+- Won Second Place at Hack The Horizon
+- Blog - https://medium.com/harmony-one/winners-of-the-hack-the-horizon-hackathon-ae04f95b71ab
 
 ## Features
 - User can Transfer ERC20 from ETH Wallet to ONE Wallet or ONE Wallet to ETH Wallet.
